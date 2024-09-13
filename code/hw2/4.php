@@ -15,26 +15,22 @@ $transliterationMap = [
   'о' => 'o', 'п' => 'p', 'р' => 'r', 'с' => 's', 'т' => 't',
   'у' => 'u', 'ф' => 'f', 'х' => 'kh', 'ц' => 'ts', 'ч' => 'ch',
   'ш' => 'sh', 'щ' => 'shch', 'ы' => 'y', 'э' => 'e', 'ю' => 'yu',
-  'я' => 'ya', ' ' => ' ',
-  'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G', 'Д' => 'D',
-  'Е' => 'E', 'Ё' => 'Yo', 'Ж' => 'Zh', 'З' => 'Z', 'И' => 'I',
-  'Й' => 'J', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N',
-  'О' => 'O', 'П' => 'P', 'Р' => 'R', 'С' => 'S', 'Т' => 'T',
-  'У' => 'U', 'Ф' => 'F', 'Х' => 'Kh', 'Ц' => 'Ts', 'Ч' => 'Ch',
-  'Ш' => 'Sh', 'Щ' => 'Shch', 'Ы' => 'Y', 'Э' => 'E', 'Ю' => 'Yu',
-  'Я' => 'Ya'
+  'я' => 'ya', ' ' => ' '
 ];
 
-function transliterate(string $russianString): string
+function transliterate(string $russianString, array $transliterationMap): string
 {
-  global $transliterationMap;
-
   $englishString = '';
   for ($i = 0; $i < mb_strlen($russianString, 'UTF-8'); $i++) {
     $char = mb_substr($russianString, $i, 1, 'UTF-8');
 
-    if (array_key_exists($char, $transliterationMap)) {
-      $englishString .= $transliterationMap[$char];
+    if (array_key_exists(mb_strtolower($char), $transliterationMap)) {
+      $englishChar = $transliterationMap[mb_strtolower($char)];
+      if (mb_strtolower($char) == $char) {
+        $englishString .= $englishChar;
+      } else {
+        $englishString .= mb_strtoupper($englishChar);
+      }
     } else {
       $englishString .= $char;
     }
@@ -43,6 +39,6 @@ function transliterate(string $russianString): string
   return $englishString;
 }
 
-echo transliterate('Привет');
+echo transliterate('Привет', $transliterationMap);
 echo "\n";
-echo transliterate('Как дела?');
+echo transliterate('Как дела?', $transliterationMap);

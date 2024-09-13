@@ -35,18 +35,24 @@ function divide(int $arg1, int $arg2): float|string
 
 function mathOperation(int $arg1, int $arg2, string $operation): float|int|string
 {
-  switch ($operation) {
-    case 'add':
-      return add($arg1, $arg2);
-    case 'subtract':
-      return subtract($arg1, $arg2);
-    case 'multiply':
-      return multiply($arg1, $arg2);
-    case 'divide':
-      return divide($arg1, $arg2);
-    default:
-      return "Ошибка: недопустимая операция!";
+//  switch ($operation) {
+//    case 'add':
+//      return add($arg1, $arg2);
+//    case 'subtract':
+//      return subtract($arg1, $arg2);
+//    case 'multiply':
+//      return multiply($arg1, $arg2);
+//    case 'divide':
+//      return divide($arg1, $arg2);
+//    default:
+//      return "Ошибка: недопустимая операция!";
+//  }
+
+  if (function_exists($operation)) {
+    return $operation($arg1, $arg2);
   }
+
+  return "Ошибка: недопустимая операция!";
 }
 
 echo mathOperation(10, 5, 'add');       // Выведет 15
