@@ -1,0 +1,25 @@
+{
+  "name": "lepihov/project",
+  "description": "Приложение для работы с файловым хранилищем",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Lepihov\\Project\\": "src/"
+    },
+    "files": [
+      "src/main.function.php",
+      "src/template.function.php",
+      "src/file.function.php",
+      "src/data.function.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "lepihov roman"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^8.2"
+  }
+}
